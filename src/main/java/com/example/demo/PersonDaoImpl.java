@@ -10,9 +10,11 @@ import org.springframework.context.annotation.Configuration;
 public class PersonDaoImpl {
 
     private static final Logger log = LoggerFactory.getLogger(PersonDaoImpl.class);
+    private PersonRepository personRepository;
 
     @Bean
     CommandLineRunner initDatabase(PersonRepository personRepository, DepartmentRepository departmentRepository) {
+        this.personRepository = personRepository;
 
         return args -> {
             Department department = new Department("Design");
