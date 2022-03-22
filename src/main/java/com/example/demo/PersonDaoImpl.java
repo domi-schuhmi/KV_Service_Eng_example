@@ -6,6 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 @Configuration
 public class PersonDaoImpl {
 
@@ -24,12 +26,16 @@ public class PersonDaoImpl {
             log.info("Preloading " + this.personRepository.save(new Person("Tom", department)));
             log.info("Preloading " + this.personRepository.save(new Person("Jack", department)));
             // get all from DB
-            log.info("Get all Persons " + this.personRepository.findAll());
-            log.info("Get all Departments " + this.departmentRepository.findAll());
+            List<Person> allPersons = this.personRepository.findAll();
+            log.info("Get all Persons " + allPersons);
+            List<Department> allDepartments = this.departmentRepository.findAll();
+            log.info("Get all Departments " + allDepartments);
 
             //get one
-            log.info("Get one Person " + this.personRepository.findById(1L));
-            log.info("Get one Department " + this.departmentRepository.findById(1L));
+            Person person = this.personRepository.findById(1L).orElseThrow();
+            log.info("Get one Person " + person);
+            Department department1 = this.departmentRepository.findById(1L).orElseThrow();
+            log.info("Get one Department " + department1);
         };
     }
 }
